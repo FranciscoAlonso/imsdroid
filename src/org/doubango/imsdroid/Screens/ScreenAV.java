@@ -150,7 +150,7 @@ public class ScreenAV extends BaseScreen{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.screen_av);
-		
+		Log.e(TAG, ">>> Se Crea el activity");
 		super.mId = getIntent().getStringExtra("id");
 		if(NgnStringUtils.isNullOrEmpty(super.mId)){
 			Log.e(TAG, "Invalid audio/video session");
@@ -199,18 +199,21 @@ public class ScreenAV extends BaseScreen{
 			public void onReceive(Context context, Intent intent) {
 				if(NgnInviteEventArgs.ACTION_INVITE_EVENT.equals(intent.getAction())){
 					handleSipEvent(intent);
+					Log.e(TAG, ">>> 1");
 				}
 				else if(NgnMediaPluginEventArgs.ACTION_MEDIA_PLUGIN_EVENT.equals(intent.getAction())){
+					Log.e(TAG, ">>> 2");
 					handleMediaEvent(intent);
 				}
 			}
 		};
+		
 		IntentFilter intentFilter = new IntentFilter();
 		intentFilter.addAction(NgnInviteEventArgs.ACTION_INVITE_EVENT);
 		intentFilter.addAction(NgnMediaPluginEventArgs.ACTION_MEDIA_PLUGIN_EVENT);
-	    registerReceiver(mBroadCastRecv, intentFilter);
+	    registerReceiver(mBroadCastRecv, intentFilter);/**/
 	    
-	    if(mIsVideoCall){
+	    /*if(mIsVideoCall){
 		    mListener = new OrientationEventListener(this, SensorManager.SENSOR_DELAY_NORMAL) {
 				@Override
 				public void onOrientationChanged(int orient) {
@@ -247,7 +250,7 @@ public class ScreenAV extends BaseScreen{
 			if(!mListener.canDetectOrientation()){
 				Log.w(TAG, "canDetectOrientation() is equal to false");
 			}
-	    }
+	    }*/
 			
 		mMainLayout = (RelativeLayout)findViewById(R.id.screen_av_relativeLayout);
         loadView();
@@ -694,10 +697,12 @@ public class ScreenAV extends BaseScreen{
 				case INPROGRESS:
 				case REMOTE_RINGING:
 					loadTryingView();
+					Log.e(TAG, ">>> 1 - TRYINGview ringing");
 					break;
 					
 				case EARLY_MEDIA:
 				case INCALL:
+					Log.e(TAG, ">>> 1 - INCALLview call in course");
 					//if(state == InviteState.INCALL){
 						// stop using the speaker (also done in ServiceManager())
 						getEngine().getSoundService().stopRingTone();
@@ -730,9 +735,11 @@ public class ScreenAV extends BaseScreen{
 							{
 								if((mIsVideoCall = (mAVSession.getMediaType() == NgnMediaType.AudioVideo || mAVSession.getMediaType() == NgnMediaType.Video))){
 									loadInCallVideoView();
+									Log.e(TAG, ">>> 1 - INCALLview is video+audio");
 								}
 								else{
 									loadInCallAudioView();
+									Log.e(TAG, ">>> 1 - INCALLview is audio");
 								}
 								break;
 							}
@@ -754,6 +761,7 @@ public class ScreenAV extends BaseScreen{
 					if(mWakeLock != null && mWakeLock.isHeld()){
 						mWakeLock.release();
 			        }
+					Log.e(TAG, ">>> 1 - TERMINATED");
 					break;
 			}
 		}
