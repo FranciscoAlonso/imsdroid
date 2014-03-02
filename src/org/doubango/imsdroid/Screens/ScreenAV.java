@@ -187,7 +187,7 @@ public class ScreenAV extends BaseScreen{
 		
 		mIsVideoCall = mAVSession.getMediaType() == NgnMediaType.AudioVideo || mAVSession.getMediaType() == NgnMediaType.Video;
 		
-		mSendDeviceInfo = getEngine().getConfigurationService().getBoolean(NgnConfigurationEntry.GENERAL_SEND_DEVICE_INFO, NgnConfigurationEntry.DEFAULT_GENERAL_SEND_DEVICE_INFO);
+		//mSendDeviceInfo = getEngine().getConfigurationService().getBoolean(NgnConfigurationEntry.GENERAL_SEND_DEVICE_INFO, NgnConfigurationEntry.DEFAULT_GENERAL_SEND_DEVICE_INFO);
 		mCountBlankPacket = 0;
 		mLastRotation = -1;
 		mLastOrientation = -1;
@@ -653,7 +653,7 @@ public class ScreenAV extends BaseScreen{
 				{
 					mIsVideoCall = (mAVSession.getMediaType() == NgnMediaType.AudioVideo || mAVSession.getMediaType() == NgnMediaType.Video);
 					loadView();
-					
+					Log.e(TAG, ">>> 2 - loading view");
 					break;
 				}
 				case PREPARED_OK:
@@ -752,9 +752,9 @@ public class ScreenAV extends BaseScreen{
 					
 				case TERMINATING:
 				case TERMINATED:
-					mTimerSuicide.schedule(mTimerTaskSuicide, new Date(new Date().getTime() + 1500));
-					mTimerTaskInCall.cancel();
-					mTimerBlankPacket.cancel();
+					mTimerSuicide.schedule(mTimerTaskSuicide, new Date(new Date().getTime() + 1500)); //muestra la pantalla de home cuando se está en la de terminated-call
+					//mTimerTaskInCall.cancel();
+					//mTimerBlankPacket.cancel();
 					loadTermView(SHOW_SIP_PHRASE ? args.getPhrase() : null);
 					
 					// release power lock
@@ -773,11 +773,13 @@ public class ScreenAV extends BaseScreen{
 	        case INPROGRESS:
 	        case REMOTE_RINGING:
 	        	loadTryingView();
+	        	Log.e(TAG, ">>> 2 - loading TRYING view");
 	        	break;
 	        	
 	        case INCALL:
 	        case EARLY_MEDIA:
 	        	loadInCallView();
+	        	Log.e(TAG, ">>> 2 - loading IN CALL view");
 	        	break;
 	        	
 	        case NONE:
@@ -785,6 +787,7 @@ public class ScreenAV extends BaseScreen{
 	        case TERMINATED:
 	        default:
 	        	loadTermView();
+	        	Log.e(TAG, ">>> 2 - loading TERMINATED view");
 	        	break;
 	    }
 	}
