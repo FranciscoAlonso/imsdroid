@@ -90,7 +90,7 @@ public class ScreenPresence  extends BaseScreen{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.screen_presence);
-        
+        Log.e(TAG, ">> PRESENCIA!!!! (screen)");
         mCbEnablePresence = (CheckBox)findViewById(R.id.screen_presence_checkBox_enable_presence);
         mCbEnableRLS = (CheckBox)findViewById(R.id.screen_presence_checkBox_rls);
         mCbEnablePartialPub = (CheckBox)findViewById(R.id.screen_presence_checkBox_partial_pub);
@@ -118,7 +118,7 @@ public class ScreenPresence  extends BaseScreen{
         mCbEnablePresence.setOnCheckedChangeListener(cbEnablePresence_OnCheckedChangeListener);
         
         // add listeners (for the configuration)
-        /* addConfigurationListener(cbEnablePresence); */
+        /* addConfigurationListener(mCbEnablePresence); */
         addConfigurationListener(mCbEnableRLS);
         addConfigurationListener(mCbEnablePartialPub);
         addConfigurationListener(mEtFreeText);

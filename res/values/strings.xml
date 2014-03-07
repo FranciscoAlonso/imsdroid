@@ -2,12 +2,12 @@
 <resources>
     <string name="app_name">IMSDroid</string>
     <string name="doubango_revision">910</string>
-    <string name="spinner_ipversion">Select IP version</string>
-    <string name="spinner_pcscf_discovery">Select PCSCF Discovery Mode</string>
-    <string name="spinner_transport">Select Network Transport</string>
+    <string name="spinner_ipversion">Seleccionar vrsion IP</string>
+    <string name="spinner_pcscf_discovery">Seleccionar Modo de Descubrimiento PCSCF</string>
+    <string name="spinner_transport">Seleccionar Transporte de Red</string>
     <!-- Strings -->
-    <string name="day_today">Today</string>
-    <string name="day_yesterday">Yesterday</string>
+    <string name="day_today">Hoy</string>
+    <string name="day_yesterday">Ayer</string>
     <string formatted="false" name="copyright">
     IMSDroid/v%s (doubango r%s), Copyright © 2010-2013 Doubango Telecom. All rights reserved.\n\n
     IMSDroid is free software: you can redistribute it and/or modify it under the terms of
@@ -25,22 +25,22 @@
     For more information about the project: http://code.google.com/p/imsdroid/.\n
     Addition copyright information: http://code.google.com/p/imsdroid/wiki/Copyrigths. \n
   </string>
-    <string name="string_answer">Answer</string>
-    <string name="string_endcall">End Call</string>
-    <string name="string_speaker_on">Speaker ON</string>
-    <string name="string_speaker_off">Speaker OFF</string>
-    <string name="string_mute_on">Mute ON</string>
-    <string name="string_mute_off">Mute OFF</string>
-    <string name="string_hold">Hold</string>
-    <string name="string_resume">Resume</string>
-    <string name="string_send_video">Send Video</string>
-    <string name="string_stop_video">Stop Video</string>
-    <string name="string_switch_camera">Switch camera</string>
-    <string name="string_call_terminated">Call Terminated</string>
-    <string name="string_incall">In Call</string>
-    <string name="string_call_incoming">Incoming Call</string>
-    <string name="string_call_outgoing">Outgoing Call</string>
-    <string name="string_call_cancelled">Call cancelled</string>
+    <string name="string_answer">Atender</string>
+    <string name="string_endcall">Terminar Llamada</string>
+    <string name="string_speaker_on">Altavoz ON</string>
+    <string name="string_speaker_off">Altavoz OFF</string>
+    <string name="string_mute_on">Silenciar ON</string>
+    <string name="string_mute_off">Silenciar OFF</string>
+    <string name="string_hold">Pausar</string>
+    <string name="string_resume">Reanudar</string>
+    <string name="string_send_video">Enviar Video</string>
+    <string name="string_stop_video">Detener Video</string>
+    <string name="string_switch_camera">Cambiar camera</string>
+    <string name="string_call_terminated">Llamada Terminada</string>
+    <string name="string_incall">En Llamada</string>
+    <string name="string_call_incoming">Llamada Entrante</string>
+    <string name="string_call_outgoing">Llamada Saliente</string>
+    <string name="string_call_cancelled">Llamada Cancelada</string>
     <!-- Colors -->
     <color name="color_black">#000000</color>
     <color name="color_white">#FFFFFF</color>
