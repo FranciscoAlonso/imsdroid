@@ -81,6 +81,8 @@ public abstract class BaseScreen extends Activity implements IBaseScreen {
 		TAB_ONLINE,
 		TAB_MESSAGES_T,
 		
+		LOGIN_REGISTER,
+		
 		
 		// All others
 		AV_T
