@@ -2,6 +2,8 @@ package org.doubango.imsdroid.Screens;
 
 import org.doubango.imsdroid.NativeService;
 import org.doubango.imsdroid.R;
+import org.doubango.ngn.events.NgnEventArgs;
+import org.doubango.ngn.events.NgnRegistrationEventArgs;
 import org.doubango.ngn.services.INgnConfigurationService;
 import org.doubango.ngn.services.INgnSipService;
 import org.doubango.ngn.utils.NgnConfigurationEntry;
@@ -16,6 +18,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class ScreenLoginRegister extends BaseScreen{
 	private static String TAG = ScreenPresence.class.getCanonicalName();
@@ -28,6 +31,7 @@ public class ScreenLoginRegister extends BaseScreen{
 	private Button mLoginButton;
 	
 	private BroadcastReceiver mBroadCastRecv;
+	private BroadcastReceiver mSipBroadCastRecv;
 	
 	public ScreenLoginRegister() {
 		super(SCREEN_TYPE.LOGIN_REGISTER, ScreenLoginRegister.class.getCanonicalName());
@@ -46,6 +50,40 @@ public class ScreenLoginRegister extends BaseScreen{
         mLoginButton = (Button)findViewById(R.id.login_button);
         
         mLoginButton.setOnClickListener(mBtLogIn_OnClickListener); //set the onclick listener 
+        
+        /*** sip Bcast receiver ***/
+		mSipBroadCastRecv = new BroadcastReceiver() { //recibir eventos de registro SIP
+			@Override
+			public void onReceive(Context context, Intent intent) {
+				final String action = intent.getAction();
+				
+				//registration event
+				if(NgnRegistrationEventArgs.ACTION_REGISTRATION_EVENT.equals(action)){
+					NgnRegistrationEventArgs args = intent.getParcelableExtra(NgnEventArgs.EXTRA_EMBEDDED);
+					if(args == null){
+						Log.e(TAG, "Invalid event args");
+						return;
+					}
+					switch(args.getEventType()){
+						case REGISTRATION_NOK:
+							break;
+						case UNREGISTRATION_OK:
+							break;
+						case REGISTRATION_OK:
+							Toast.makeText(context, "audio Call: OK", Toast.LENGTH_SHORT).show();
+							
+							break;
+						case REGISTRATION_INPROGRESS:
+							break;
+						case UNREGISTRATION_INPROGRESS:
+							break;
+						case UNREGISTRATION_NOK:
+							break;
+					}
+				}
+			}
+        };
+        
 	}
 	
 	private OnClickListener mBtLogIn_OnClickListener = new OnClickListener(){ 
@@ -74,25 +112,6 @@ public class ScreenLoginRegister extends BaseScreen{
 				mConfigurationService.commit();
 				// register (log in)
 				mSipService.register(ScreenLoginRegister.this);
-				
-				mBroadCastRecv = new BroadcastReceiver() {
-					@Override
-					public void onReceive(Context context, Intent intent) {
-						final String action = intent.getAction();
-						Log.d(TAG, "onReceive()");
-						
-						if(NativeService.ACTION_STATE_EVENT.equals(action)){
-							if(intent.getBooleanExtra("started", false)){
-								mScreenService.show(ScreenLoginRegister.class);
-								getEngine().getConfigurationService().putBoolean(NgnConfigurationEntry.GENERAL_AUTOSTART, true);
-								finish();
-							}
-						}
-					}
-				};
-				final IntentFilter intentFilter = new IntentFilter();
-				intentFilter.addAction(NativeService.ACTION_STATE_EVENT);
-			    registerReceiver(mBroadCastRecv, intentFilter);
 				
 			}
 		}
