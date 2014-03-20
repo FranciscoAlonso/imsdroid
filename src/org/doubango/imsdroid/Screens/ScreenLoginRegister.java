@@ -8,6 +8,8 @@ import org.doubango.ngn.services.INgnConfigurationService;
 import org.doubango.ngn.services.INgnSipService;
 import org.doubango.ngn.utils.NgnConfigurationEntry;
 
+import android.app.Activity;
+import android.app.Notification.Action;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -49,6 +51,9 @@ public class ScreenLoginRegister extends BaseScreen{
         mPassword = (EditText)findViewById(R.id.password_editText); //change for password type field      
         mLoginButton = (Button)findViewById(R.id.login_button);
         
+		mUserName.setText("bob");
+		mPassword.setText("bob123");
+        
         mLoginButton.setOnClickListener(mBtLogIn_OnClickListener); //set the onclick listener 
         
         /*** sip Bcast receiver ***/
@@ -66,12 +71,15 @@ public class ScreenLoginRegister extends BaseScreen{
 					}
 					switch(args.getEventType()){
 						case REGISTRATION_NOK:
+							Log.e(TAG, ">>> NO REGISTRADO");
 							break;
 						case UNREGISTRATION_OK:
 							break;
 						case REGISTRATION_OK:
-							Toast.makeText(context, "audio Call: OK", Toast.LENGTH_SHORT).show();
-							
+							Log.e(TAG, ">>> REGISTRADO");
+							mScreenService.show(ScreenHome.class);
+							getEngine().getConfigurationService().putBoolean(NgnConfigurationEntry.GENERAL_AUTOSTART, true);
+                            //finish();
 							break;
 						case REGISTRATION_INPROGRESS:
 							break;
@@ -84,15 +92,24 @@ public class ScreenLoginRegister extends BaseScreen{
 			}
         };
         
+        final IntentFilter intentFilter = new IntentFilter();
+		intentFilter.addAction(NgnRegistrationEventArgs.ACTION_REGISTRATION_EVENT);
+	    registerReceiver(mSipBroadCastRecv, intentFilter); //registrar el bcast receiver
+        /**/
 	}
 	
 	private OnClickListener mBtLogIn_OnClickListener = new OnClickListener(){ 
 		public void onClick(View v) {//set the onclick method for login in and sip registration
+
 			//login compare username and password againts BD data 
 			//if success proceed with register attempt (get the extension from bd) 
 			String usrname = mUserName.getText().toString();
 			String password = mPassword.getText().toString();
 			if(usrname.equals("bob") && password.equals("bob123")){
+				//mScreenService.show(ScreenHome.class);
+				//getEngine().getConfigurationService().putBoolean(NgnConfigurationEntry.GENERAL_AUTOSTART, true);
+				//finish();
+				
 				// Set credentials (get them from SOS BD or sip server data)
 				//192.168.1.120 home
 				//192.168.2.13 tony's VM at work
@@ -112,6 +129,7 @@ public class ScreenLoginRegister extends BaseScreen{
 				mConfigurationService.commit();
 				// register (log in)
 				mSipService.register(ScreenLoginRegister.this);
+				/**/
 				
 			}
 		}
@@ -119,7 +137,15 @@ public class ScreenLoginRegister extends BaseScreen{
 	
 	@Override
 	protected void onPause() {
-		
+		super.onPause();
 	}
+	
+    @Override
+    protected void onDestroy() {
+            if(mBroadCastRecv != null){
+                    unregisterReceiver(mBroadCastRecv);
+            }
+            super.onDestroy();
+    }
 
 }
