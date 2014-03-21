@@ -56,6 +56,11 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 
+
+/*Se puede usar tanto para contactos como para casos u otra lista, tiene unos actionitems 
+ * para proporcionar distintas acciones sobre el elemento seleccionado 
+ */
+ 
 public class ScreenTabContacts extends BaseScreen {
 	private static String TAG = ScreenTabContacts.class.getCanonicalName();
 	private static final int SELECT_CONTENT = 1;
@@ -80,7 +85,7 @@ public class ScreenTabContacts extends BaseScreen {
 		
 		mContactService = getEngine().getContactService();
 		mSipService = getEngine().getSipService();
-		
+		/*Botones al hacer click sobre contacto*/ 
 		mAItemVoiceCall = new ActionItem();
 		mAItemVoiceCall.setTitle("Voice");
 		mAItemVoiceCall.setOnClickListener(new View.OnClickListener() {
@@ -143,7 +148,7 @@ public class ScreenTabContacts extends BaseScreen {
                     intent.setType("*/*")
                     	.addCategory(Intent.CATEGORY_OPENABLE)
                     	.setAction(Intent.ACTION_GET_CONTENT);
-                    startActivityForResult(Intent.createChooser(intent, "Select content"), SELECT_CONTENT);   
+                    startActivityForResult(Intent.createChooser(intent, "Select content"), SELECT_CONTENT);   //compartir contenido, revisar para transferencia de archivos 
 					if(mLasQuickAction != null){
 						mLasQuickAction.dismiss();
 					}
@@ -156,7 +161,7 @@ public class ScreenTabContacts extends BaseScreen {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.screen_tab_contacts);
-		
+		//se configura la lista 
 		mListView = (ListView) findViewById(R.id.screen_tab_contacts_listView);
 	    mAdapter = new MySeparatedListAdapter(this);
 	    
@@ -164,7 +169,7 @@ public class ScreenTabContacts extends BaseScreen {
 	    mListView.setOnItemClickListener(mOnItemListViewClickListener);
 	    mListView.setOnItemLongClickListener(mOnItemListViewLongClickListener);
 	    registerForContextMenu(mListView);
-	    
+	    //se le ponen los iconos a cada actionItem
 	    mAItemVoiceCall.setIcon(getResources().getDrawable(R.drawable.voice_call_25));
 		mAItemVideoCall.setIcon(getResources().getDrawable(R.drawable.visio_call_25));
 		mAItemChat.setIcon(getResources().getDrawable(R.drawable.chat_25));
@@ -173,7 +178,7 @@ public class ScreenTabContacts extends BaseScreen {
 	}
 	
 	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) { //transferencia de archivos, por revisar
 		super.onActivityResult(requestCode, resultCode, data);
 
 		if (resultCode == RESULT_OK) {
@@ -188,27 +193,27 @@ public class ScreenTabContacts extends BaseScreen {
 			}
 		}
 	}
-	private final OnItemClickListener mOnItemListViewClickListener = new OnItemClickListener() {
+	private final OnItemClickListener mOnItemListViewClickListener = new OnItemClickListener() { //onclick sobre un elemento de la lista obtiene la posicion y muestra las opciones
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			mSelectedContact = (NgnContact)parent.getItemAtPosition(position);
 			if(mSelectedContact != null){
 				mLasQuickAction = new QuickAction(view);
-				if(!NgnStringUtils.isNullOrEmpty(mSelectedContact.getPrimaryNumber())){
+				if(!NgnStringUtils.isNullOrEmpty(mSelectedContact.getPrimaryNumber())){ // se agrega cada opcion
 					mLasQuickAction.addActionItem(mAItemVoiceCall);
 					mLasQuickAction.addActionItem(mAItemVideoCall);
 					mLasQuickAction.addActionItem(mAItemChat);
 					mLasQuickAction.addActionItem(mAItemSMS);
 					mLasQuickAction.addActionItem(mAItemShare);
 				}
-				mLasQuickAction.setAnimStyle(QuickAction.ANIM_AUTO);
-				mLasQuickAction.show();
+				mLasQuickAction.setAnimStyle(QuickAction.ANIM_AUTO); //tipo de animacion del menu
+				mLasQuickAction.show(); //muestra el menu
 			}
 		}
 	};
 	
-	private final OnItemLongClickListener mOnItemListViewLongClickListener = new OnItemLongClickListener(){
+	private final OnItemLongClickListener mOnItemListViewLongClickListener = new OnItemLongClickListener(){ //hace lo mismo que el click corto
 		public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-			if(!mSipService.isRegistered()){
+			if(!mSipService.isRegistered()){ 
 				Log.e(TAG, "Not registered yet");
 				return true;
 			}
@@ -233,7 +238,8 @@ public class ScreenTabContacts extends BaseScreen {
 	/**
 	 * MySeparatedListAdapter
 	 */
-	static class MySeparatedListAdapter extends SeparatedListAdapter implements Observer{
+	//el servicio de contactos no lo veo util, usa contactos locales del telefono, se podria usar la lista observable (NgnObservableList) y llenarla con contactos de la bd
+	static class MySeparatedListAdapter extends SeparatedListAdapter implements Observer{ //obsevador para los contactos, usa el servicio de contactos, 
 		private final LayoutInflater mInflater;
 		private final Context mContext;
 		private final Handler mHandler;
