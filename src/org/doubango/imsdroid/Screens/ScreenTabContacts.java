@@ -77,7 +77,7 @@ public class ScreenTabContacts extends BaseScreen {
 	private final ActionItem mAItemSMS;
 	private final ActionItem mAItemShare;
 	
-	private NgnContact mSelectedContact;
+	private String mSelectedContact;
 	private QuickAction mLasQuickAction;
 	
 	public ScreenTabContacts() {
@@ -92,7 +92,7 @@ public class ScreenTabContacts extends BaseScreen {
 			@Override
 			public void onClick(View v) {
 				if(mSelectedContact != null){
-					ScreenAV.makeCall(mSelectedContact.getPrimaryNumber(), NgnMediaType.Audio);
+					ScreenAV.makeCall("6001", NgnMediaType.Audio);
 					if(mLasQuickAction != null){
 						mLasQuickAction.dismiss();
 					}
@@ -106,7 +106,7 @@ public class ScreenTabContacts extends BaseScreen {
 			@Override
 			public void onClick(View v) {
 				if(mSelectedContact != null){
-					ScreenAV.makeCall(mSelectedContact.getPrimaryNumber(), NgnMediaType.AudioVideo);
+					ScreenAV.makeCall("6001", NgnMediaType.AudioVideo);
 					if(mLasQuickAction != null){
 						mLasQuickAction.dismiss();
 					}
@@ -119,7 +119,7 @@ public class ScreenTabContacts extends BaseScreen {
 		mAItemChat.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				ScreenChat.startChat(mSelectedContact.getPrimaryNumber(), false);
+				//ScreenChat.startChat(mSelectedContact.getPrimaryNumber(), false);
 				if(mLasQuickAction != null){
 					mLasQuickAction.dismiss();
 				}
@@ -131,7 +131,7 @@ public class ScreenTabContacts extends BaseScreen {
 		mAItemSMS.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				ScreenChat.startChat(mSelectedContact.getPrimaryNumber(), true);
+				//ScreenChat.startChat(mSelectedContact.getPrimaryNumber(), true);
 				if(mLasQuickAction != null){
 					mLasQuickAction.dismiss();
 				}
@@ -187,7 +187,7 @@ public class ScreenTabContacts extends BaseScreen {
 					if (mSelectedContact != null) {
 						Uri selectedContentUri = data.getData();
 						String selectedContentPath = super.getPath(selectedContentUri);
-						ScreenFileTransferView.sendFile(mSelectedContact.getPrimaryNumber(), selectedContentPath);
+						//ScreenFileTransferView.sendFile(mSelectedContact.getPrimaryNumber(), selectedContentPath);
 					}
 					break;
 			}
@@ -195,10 +195,10 @@ public class ScreenTabContacts extends BaseScreen {
 	}
 	private final OnItemClickListener mOnItemListViewClickListener = new OnItemClickListener() { //onclick sobre un elemento de la lista obtiene la posicion y muestra las opciones
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			mSelectedContact = (NgnContact)parent.getItemAtPosition(position);
+			mSelectedContact = (String)parent.getItemAtPosition(position);
 			if(mSelectedContact != null){
 				mLasQuickAction = new QuickAction(view);
-				if(!NgnStringUtils.isNullOrEmpty(mSelectedContact.getPrimaryNumber())){ // se agrega cada opcion
+				if(!NgnStringUtils.isNullOrEmpty("6001")){ // se agrega cada opcion
 					mLasQuickAction.addActionItem(mAItemVoiceCall);
 					mLasQuickAction.addActionItem(mAItemVideoCall);
 					mLasQuickAction.addActionItem(mAItemChat);
@@ -218,10 +218,10 @@ public class ScreenTabContacts extends BaseScreen {
 				return true;
 			}
 			
-			mSelectedContact = (NgnContact)parent.getItemAtPosition(position);
+			mSelectedContact = (String)parent.getItemAtPosition(position);
 			if(mSelectedContact != null){
 				mLasQuickAction = new QuickAction(view);
-				if(!NgnStringUtils.isNullOrEmpty(mSelectedContact.getPrimaryNumber())){
+				if(!NgnStringUtils.isNullOrEmpty("6001")){
 					mLasQuickAction.addActionItem(mAItemVoiceCall);
 					mLasQuickAction.addActionItem(mAItemVideoCall);
 					mLasQuickAction.addActionItem(mAItemChat);
@@ -266,6 +266,7 @@ public class ScreenTabContacts extends BaseScreen {
 		
 		private void updateSections(){
 			clearSections();
+			String test = "Test String";
 			synchronized(mContacts){
 				List<NgnContact> contacts = mContacts.getList();
 				String lastGroup = "$", displayName;
@@ -284,7 +285,7 @@ public class ScreenTabContacts extends BaseScreen {
 					}
 					
 					if(lastAdapter != null){
-						lastAdapter.addContact(contact);
+						lastAdapter.addContact(test);
 					}
 				}
 			}
@@ -325,7 +326,7 @@ public class ScreenTabContacts extends BaseScreen {
 		private final LayoutInflater mInflater;
 		
 		private final Context mContext;
-		private List<NgnContact> mContacts;
+		private List<String> mContacts;
 		private final String mSectionText;
 		
 		private ScreenTabContactsAdapter(Context context, String sectionText) {
@@ -338,9 +339,9 @@ public class ScreenTabContacts extends BaseScreen {
 			return mSectionText;
 		}
 		
-		public void addContact(NgnContact contact){
+		public void addContact(String contact){
 			if(mContacts == null){
-				mContacts = new ArrayList<NgnContact>();
+				mContacts = new ArrayList<String>();
 			}
 			mContacts.add(contact);
 		}
@@ -370,20 +371,21 @@ public class ScreenTabContacts extends BaseScreen {
 			if (view == null) {
 				view = mInflater.inflate(R.layout.screen_tab_contacts_contact_item, null);
 			}
-			final NgnContact contact = (NgnContact)getItem(position);
+			final String contact = (String)getItem(position);
 			
 			if(contact != null){
 				final ImageView ivAvatar = (ImageView) view.findViewById(R.id.screen_tab_contacts_item_imageView_avatar);
 				if(ivAvatar != null){
 					final TextView tvDisplayName = (TextView) view.findViewById(R.id.screen_tab_contacts_item_textView_displayname);
-					tvDisplayName.setText(contact.getDisplayName());
-					final Bitmap avatar = contact.getPhoto();
-					if(avatar == null){
+					tvDisplayName.setText(contact); //Nombre de contacto
+					//tvDisplayName.setText(contact.getDisplayName()); //Nombre de contacto
+					//final Bitmap avatar = contact.getPhoto(); // foto de contacto no se va a usar
+					/*if(avatar == null){
 						ivAvatar.setImageResource(R.drawable.avatar_48);
 					}
 					else{
 						ivAvatar.setImageBitmap(NgnGraphicsUtils.getResizedBitmap(avatar, NgnGraphicsUtils.getSizeInPixel(48), NgnGraphicsUtils.getSizeInPixel(48)));
-					}
+					}*/
 				}
 			}
 			
