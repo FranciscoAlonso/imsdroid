@@ -72,13 +72,14 @@ public class ScreenLoginRegister extends BaseScreen{
 					switch(args.getEventType()){
 						case REGISTRATION_NOK:
 							Log.e(TAG, ">>> NO REGISTRADO");
+							Toast.makeText(context, "No registrado", Toast.LENGTH_SHORT).show();
 							break;
 						case UNREGISTRATION_OK:
 							break;
 						case REGISTRATION_OK:
 							Log.e(TAG, ">>> REGISTRADO");
-							mScreenService.show(ScreenHome.class);
-							getEngine().getConfigurationService().putBoolean(NgnConfigurationEntry.GENERAL_AUTOSTART, true);
+							//mScreenService.show(ScreenHome.class);
+							//getEngine().getConfigurationService().putBoolean(NgnConfigurationEntry.GENERAL_AUTOSTART, true);
                             //finish();
 							break;
 						case REGISTRATION_INPROGRESS:
@@ -105,10 +106,9 @@ public class ScreenLoginRegister extends BaseScreen{
 			//if success proceed with register attempt (get the extension from bd) 
 			String usrname = mUserName.getText().toString();
 			String password = mPassword.getText().toString();
-			if(usrname.equals("bob") && password.equals("bob123")){
-				//mScreenService.show(ScreenHome.class);
-				//getEngine().getConfigurationService().putBoolean(NgnConfigurationEntry.GENERAL_AUTOSTART, true);
-				//finish();
+			if(usrname.equals("bob") && password.equals("bob123")){ //if authenticated show homeScreen and try registration
+				mScreenService.show(ScreenHome.class);
+				getEngine().getConfigurationService().putBoolean(NgnConfigurationEntry.GENERAL_AUTOSTART, true);
 				
 				// Set credentials (get them from SOS BD or sip server data)
 				//192.168.1.120 home

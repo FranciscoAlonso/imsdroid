@@ -198,7 +198,7 @@ public class ScreenTabContacts extends BaseScreen {
 			mSelectedContact = (String)parent.getItemAtPosition(position);
 			if(mSelectedContact != null){
 				mLasQuickAction = new QuickAction(view);
-				if(!NgnStringUtils.isNullOrEmpty("6001")){ // se agrega cada opcion
+				if(!NgnStringUtils.isNullOrEmpty("6001")){ // se agrega cada opcion (originalmente verificaba si el contacto tiene numero primario)
 					mLasQuickAction.addActionItem(mAItemVoiceCall);
 					mLasQuickAction.addActionItem(mAItemVideoCall);
 					mLasQuickAction.addActionItem(mAItemChat);
@@ -264,11 +264,13 @@ public class ScreenTabContacts extends BaseScreen {
 			super.finalize();
 		}
 		
+		
+		
 		private void updateSections(){  //Se agregan los contactos 
 			clearSections();
 			String test = "Test String";
 			synchronized(mContacts){
-				List<NgnContact> contacts = mContacts.getList();
+				List<NgnContact> contacts = mContacts.getList(); //lista de contactos en el telefono
 				String lastGroup = "$", displayName;
 				ScreenTabContactsAdapter lastAdapter = null;
 				
@@ -285,7 +287,7 @@ public class ScreenTabContacts extends BaseScreen {
 					}
 					
 					if(lastAdapter != null){
-						lastAdapter.addContact(test); //Se agrega string del nombre de contacto
+						lastAdapter.addContact(contact.getDisplayName()); //Se agrega string del nombre de contacto
 					}
 				}
 			}
@@ -371,16 +373,16 @@ public class ScreenTabContacts extends BaseScreen {
 			if (view == null) {
 				view = mInflater.inflate(R.layout.screen_tab_contacts_contact_item, null);
 			}
-			final String contact = (String)getItem(position);
+			final NgnContact contact = (NgnContact)getItem(position);
 			
 			if(contact != null){
 				final ImageView ivAvatar = (ImageView) view.findViewById(R.id.screen_tab_contacts_item_imageView_avatar);
 				if(ivAvatar != null){
 					final TextView tvDisplayName = (TextView) view.findViewById(R.id.screen_tab_contacts_item_textView_displayname);
-					tvDisplayName.setText(contact); //Nombre de contacto
-					//tvDisplayName.setText(contact.getDisplayName()); //Nombre de contacto
-					//final Bitmap avatar = contact.getPhoto(); // foto de contacto no se va a usar
-					/*if(avatar == null){
+					//tvDisplayName.setText(contact); //Nombre de contacto
+					tvDisplayName.setText(contact.getDisplayName()); //Nombre de contacto
+					/*final Bitmap avatar = contact.getPhoto(); // foto de contacto no se va a usar
+					if(avatar == null){
 						ivAvatar.setImageResource(R.drawable.avatar_48);
 					}
 					else{
