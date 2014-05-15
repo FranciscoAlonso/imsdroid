@@ -588,7 +588,7 @@ public class ScreenAV extends BaseScreen{
 		
 		final NgnAVSession avSession = NgnAVSession.createOutgoingSession(sipService.getSipStack(), mediaType);
 		avSession.setRemotePartyUri(remoteUri); // HACK
-		screenService.show(ScreenAV.class, Long.toString(avSession.getId()));	
+		screenService.show(ScreenAV.class, Long.toString(avSession.getId()));
 		
 		// Hold the active call
 		final NgnAVSession activeCall = NgnAVSession.getFirstActiveCallAndNot(avSession.getId());

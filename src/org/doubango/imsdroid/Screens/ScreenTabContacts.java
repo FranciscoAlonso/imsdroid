@@ -264,7 +264,7 @@ public class ScreenTabContacts extends BaseScreen {
 			super.finalize();
 		}
 		
-		private void updateSections(){
+		private void updateSections(){  //Se agregan los contactos 
 			clearSections();
 			String test = "Test String";
 			synchronized(mContacts){
@@ -285,7 +285,7 @@ public class ScreenTabContacts extends BaseScreen {
 					}
 					
 					if(lastAdapter != null){
-						lastAdapter.addContact(test);
+						lastAdapter.addContact(test); //Se agrega string del nombre de contacto
 					}
 				}
 			}
