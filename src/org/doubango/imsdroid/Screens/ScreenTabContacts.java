@@ -77,7 +77,7 @@ public class ScreenTabContacts extends BaseScreen {
 	private final ActionItem mAItemSMS;
 	private final ActionItem mAItemShare;
 	
-	private String mSelectedContact;
+	private NgnContact mSelectedContact;
 	private QuickAction mLasQuickAction;
 	
 	public ScreenTabContacts() {
@@ -87,7 +87,7 @@ public class ScreenTabContacts extends BaseScreen {
 		mSipService = getEngine().getSipService();
 		/*Botones al hacer click sobre contacto*/ 
 		mAItemVoiceCall = new ActionItem();
-		mAItemVoiceCall.setTitle("Voice");
+		mAItemVoiceCall.setTitle("Audio");
 		mAItemVoiceCall.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -139,7 +139,7 @@ public class ScreenTabContacts extends BaseScreen {
 		});
 		
 		mAItemShare = new ActionItem();
-		mAItemShare.setTitle("Share");
+		mAItemShare.setTitle("Compartir");
 		mAItemShare.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -195,14 +195,14 @@ public class ScreenTabContacts extends BaseScreen {
 	}
 	private final OnItemClickListener mOnItemListViewClickListener = new OnItemClickListener() { //onclick sobre un elemento de la lista obtiene la posicion y muestra las opciones
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			mSelectedContact = (String)parent.getItemAtPosition(position);
+			mSelectedContact = (NgnContact)parent.getItemAtPosition(position);
 			if(mSelectedContact != null){
 				mLasQuickAction = new QuickAction(view);
 				if(!NgnStringUtils.isNullOrEmpty("6001")){ // se agrega cada opcion (originalmente verificaba si el contacto tiene numero primario)
 					mLasQuickAction.addActionItem(mAItemVoiceCall);
 					mLasQuickAction.addActionItem(mAItemVideoCall);
-					mLasQuickAction.addActionItem(mAItemChat);
-					mLasQuickAction.addActionItem(mAItemSMS);
+					//mLasQuickAction.addActionItem(mAItemChat);
+					//mLasQuickAction.addActionItem(mAItemSMS);
 					mLasQuickAction.addActionItem(mAItemShare);
 				}
 				mLasQuickAction.setAnimStyle(QuickAction.ANIM_AUTO); //tipo de animacion del menu
@@ -218,7 +218,7 @@ public class ScreenTabContacts extends BaseScreen {
 				return true;
 			}
 			
-			mSelectedContact = (String)parent.getItemAtPosition(position);
+			mSelectedContact = (NgnContact)parent.getItemAtPosition(position);
 			if(mSelectedContact != null){
 				mLasQuickAction = new QuickAction(view);
 				if(!NgnStringUtils.isNullOrEmpty("6001")){
@@ -287,7 +287,7 @@ public class ScreenTabContacts extends BaseScreen {
 					}
 					
 					if(lastAdapter != null){
-						lastAdapter.addContact(contact.getDisplayName()); //Se agrega string del nombre de contacto
+						lastAdapter.addContact(contact); //Se agrega string del nombre de contacto
 					}
 				}
 			}
@@ -328,7 +328,8 @@ public class ScreenTabContacts extends BaseScreen {
 		private final LayoutInflater mInflater;
 		
 		private final Context mContext;
-		private List<String> mContacts;
+		private List<NgnContact> mContacts;
+		//private List<String> mContacts;
 		private final String mSectionText;
 		
 		private ScreenTabContactsAdapter(Context context, String sectionText) {
@@ -341,9 +342,10 @@ public class ScreenTabContacts extends BaseScreen {
 			return mSectionText;
 		}
 		
-		public void addContact(String contact){
+		public void addContact(NgnContact contact){
 			if(mContacts == null){
-				mContacts = new ArrayList<String>();
+				mContacts = new ArrayList<NgnContact>();
+				//mContacts = new ArrayList<String>();
 			}
 			mContacts.add(contact);
 		}
@@ -374,21 +376,23 @@ public class ScreenTabContacts extends BaseScreen {
 				view = mInflater.inflate(R.layout.screen_tab_contacts_contact_item, null);
 			}
 			final NgnContact contact = (NgnContact)getItem(position);
+			//final String contact = (String)getItem(position);
 			
 			if(contact != null){
-				final ImageView ivAvatar = (ImageView) view.findViewById(R.id.screen_tab_contacts_item_imageView_avatar);
-				if(ivAvatar != null){
+				//final ImageView ivAvatar = (ImageView) view.findViewById(R.id.screen_tab_contacts_item_imageView_avatar);
+				//if(ivAvatar != null){
 					final TextView tvDisplayName = (TextView) view.findViewById(R.id.screen_tab_contacts_item_textView_displayname);
 					//tvDisplayName.setText(contact); //Nombre de contacto
 					tvDisplayName.setText(contact.getDisplayName()); //Nombre de contacto
-					/*final Bitmap avatar = contact.getPhoto(); // foto de contacto no se va a usar
-					if(avatar == null){
-						ivAvatar.setImageResource(R.drawable.avatar_48);
-					}
-					else{
-						ivAvatar.setImageBitmap(NgnGraphicsUtils.getResizedBitmap(avatar, NgnGraphicsUtils.getSizeInPixel(48), NgnGraphicsUtils.getSizeInPixel(48)));
-					}*/
-				}
+					/*Se puede sustituir por un icono que indicque presencia*/
+					//final Bitmap avatar = contact.getPhoto(); // foto de contacto no se va a usar 
+					//if(avatar == null){
+						//ivAvatar.setImageResource(R.drawable.avatar_48);
+					//}
+					//else{
+					//	ivAvatar.setImageBitmap(NgnGraphicsUtils.getResizedBitmap(avatar, NgnGraphicsUtils.getSizeInPixel(48), NgnGraphicsUtils.getSizeInPixel(48)));
+					//}
+				//}
 			}
 			
 			return view;

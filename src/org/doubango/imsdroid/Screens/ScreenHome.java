@@ -207,14 +207,14 @@ public class ScreenHome extends BaseScreen {
 		static final int ALWAYS_VISIBLE_ITEMS_COUNT = 4;
 		static final ScreenHomeItem[] sItems =  new ScreenHomeItem[]{
 			// always visible
-    		new ScreenHomeItem(R.drawable.sign_in_48, "Sign In", null),
-    		new ScreenHomeItem(R.drawable.exit_48, "Exit/Quit", null),
-    		new ScreenHomeItem(R.drawable.options_48, "Options", ScreenSettings.class),
-    		new ScreenHomeItem(R.drawable.eab2_48, "Address Book", ScreenTabContacts.class),
+    		new ScreenHomeItem(R.drawable.sign_in_48, "Registrarse", null),
+    		new ScreenHomeItem(R.drawable.exit_48, "Cerrar", null),
+    		new ScreenHomeItem(R.drawable.options_48, "Opciones", ScreenSettings.class),
+    		new ScreenHomeItem(R.drawable.eab2_48, "Contactos", ScreenTabContacts.class),
     		//new ScreenHomeItem(R.drawable.about_48, "About", ScreenAbout.class),
     		// visible only if connected
-    		new ScreenHomeItem(R.drawable.dialer_48, "Dialer", ScreenTabDialer.class),
-    		new ScreenHomeItem(R.drawable.eab2_48, "Address Book", ScreenTabContacts.class),
+    		new ScreenHomeItem(R.drawable.dialer_48, "Marcador", ScreenTabDialer.class),
+    		//new ScreenHomeItem(R.drawable.eab2_48, "Address Book", ScreenTabContacts.class),
     		//new ScreenHomeItem(R.drawable.history_48, "History", ScreenTabHistory.class),
     		//new ScreenHomeItem(R.drawable.chat_48, "Messages", ScreenTabMessages.class),
 		};
@@ -261,16 +261,16 @@ public class ScreenHome extends BaseScreen {
 			
 			if(position == ScreenHomeItem.ITEM_SIGNIN_SIGNOUT_POS){
 				if(mBaseScreen.mSipService.getRegistrationState() == ConnectionState.CONNECTING || mBaseScreen.mSipService.getRegistrationState() == ConnectionState.TERMINATING){
-					((TextView) view.findViewById(R.id.screen_home_item_text)).setText("Cancel");
+					((TextView) view.findViewById(R.id.screen_home_item_text)).setText("Cancelar");
 					((ImageView) view .findViewById(R.id.screen_home_item_icon)).setImageResource(R.drawable.sign_inprogress_48);
 				}
 				else{
 					if(mBaseScreen.mSipService.isRegistered()){
-						((TextView) view.findViewById(R.id.screen_home_item_text)).setText("Sign Out");
+						((TextView) view.findViewById(R.id.screen_home_item_text)).setText("Salir");
 						((ImageView) view .findViewById(R.id.screen_home_item_icon)).setImageResource(R.drawable.sign_out_48);
 					}
 					else{
-						((TextView) view.findViewById(R.id.screen_home_item_text)).setText("Sign In");
+						((TextView) view.findViewById(R.id.screen_home_item_text)).setText("Registrarse");
 						((ImageView) view .findViewById(R.id.screen_home_item_icon)).setImageResource(R.drawable.sign_in_48);
 					}
 				}

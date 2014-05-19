@@ -38,7 +38,7 @@ public class ScreenIdentity  extends BaseScreen {
 	private EditText mEtIMPI;
 	private EditText mEtPassword;
 	private EditText mEtRealm;
-	private CheckBox mCbEarlyIMS;
+	//private CheckBox mCbEarlyIMS;
 	
 	public ScreenIdentity() {
 		super(SCREEN_TYPE.IDENTITY_T, TAG);
@@ -56,21 +56,21 @@ public class ScreenIdentity  extends BaseScreen {
         mEtIMPI = (EditText)findViewById(R.id.screen_identity_editText_impi);
         mEtPassword = (EditText)findViewById(R.id.screen_identity_editText_password);
         mEtRealm = (EditText)findViewById(R.id.screen_identity_editText_realm);
-        mCbEarlyIMS = (CheckBox)findViewById(R.id.screen_identity_checkBox_earlyIMS);
+        //mCbEarlyIMS = (CheckBox)findViewById(R.id.screen_identity_checkBox_earlyIMS);
         
         mEtDisplayName.setText(mConfigurationService.getString(NgnConfigurationEntry.IDENTITY_DISPLAY_NAME, NgnConfigurationEntry.DEFAULT_IDENTITY_DISPLAY_NAME));
         mEtIMPU.setText(mConfigurationService.getString(NgnConfigurationEntry.IDENTITY_IMPU, NgnConfigurationEntry.DEFAULT_IDENTITY_IMPU));
         mEtIMPI.setText(mConfigurationService.getString(NgnConfigurationEntry.IDENTITY_IMPI, NgnConfigurationEntry.DEFAULT_IDENTITY_IMPI));
         mEtPassword.setText(mConfigurationService.getString(NgnConfigurationEntry.IDENTITY_PASSWORD, NgnStringUtils.emptyValue()));
         mEtRealm.setText(mConfigurationService.getString(NgnConfigurationEntry.NETWORK_REALM, NgnConfigurationEntry.DEFAULT_NETWORK_REALM));
-        mCbEarlyIMS.setChecked(mConfigurationService.getBoolean(NgnConfigurationEntry.NETWORK_USE_EARLY_IMS, NgnConfigurationEntry.DEFAULT_NETWORK_USE_EARLY_IMS));
+        //mCbEarlyIMS.setChecked(mConfigurationService.getBoolean(NgnConfigurationEntry.NETWORK_USE_EARLY_IMS, NgnConfigurationEntry.DEFAULT_NETWORK_USE_EARLY_IMS));
         
         super.addConfigurationListener(mEtDisplayName);
         super.addConfigurationListener(mEtIMPU);
         super.addConfigurationListener(mEtIMPI);
         super.addConfigurationListener(mEtPassword);
         super.addConfigurationListener(mEtRealm);
-        super.addConfigurationListener(mCbEarlyIMS);
+        //super.addConfigurationListener(mCbEarlyIMS);
 	}	
 
 	protected void onPause() {
@@ -85,8 +85,8 @@ public class ScreenIdentity  extends BaseScreen {
 					mEtPassword.getText().toString().trim());
 			mConfigurationService.putString(NgnConfigurationEntry.NETWORK_REALM, 
 					mEtRealm.getText().toString().trim());
-			mConfigurationService.putBoolean(NgnConfigurationEntry.NETWORK_USE_EARLY_IMS, 
-					mCbEarlyIMS.isChecked());
+			//mConfigurationService.putBoolean(NgnConfigurationEntry.NETWORK_USE_EARLY_IMS, 
+					//mCbEarlyIMS.isChecked());
 			
 			// Compute
 			if(!mConfigurationService.commit()){

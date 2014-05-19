@@ -1,5 +1,6 @@
 package org.doubango.imsdroid.Screens;
 
+import org.doubango.imsdroid.Engine;
 import org.doubango.imsdroid.NativeService;
 import org.doubango.imsdroid.R;
 import org.doubango.ngn.events.NgnEventArgs;
@@ -139,6 +140,24 @@ public class ScreenLoginRegister extends BaseScreen{
 	protected void onPause() {
 		super.onPause();
 	}
+	/*
+	@Override
+	protected void onResume() {//se inicia el engine 
+		super.onResume();
+		final Engine engine = getEngine();
+			
+		final Thread thread = new Thread(new Runnable(){
+			@Override
+			public void run() {
+				if(!engine.isStarted()){
+					Log.d(TAG, "Starts the engine from the splash screen");
+					engine.start();
+				}
+			}
+		});
+		thread.setPriority(Thread.MAX_PRIORITY);
+		thread.start();
+	}*/
 	
     @Override
     protected void onDestroy() {

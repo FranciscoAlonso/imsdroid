@@ -80,13 +80,13 @@ public class ScreenSettings extends BaseScreen {
 	 */
 	static class ScreenSettingsAdapter extends BaseAdapter{
 		final static ScreenSettingsItem[] sItems =  new ScreenSettingsItem[]{
-    		new ScreenSettingsItem(R.drawable.general_48, "General", ScreenGeneral.class),
-    		new ScreenSettingsItem(R.drawable.identity_48, "Identity", ScreenIdentity.class ),
-    		new ScreenSettingsItem(R.drawable.network_48, "Network", ScreenNetwork.class),
+    		//new ScreenSettingsItem(R.drawable.general_48, "General", ScreenGeneral.class),
+    		new ScreenSettingsItem(R.drawable.identity_48, "Identidad", ScreenIdentity.class ),
+    		new ScreenSettingsItem(R.drawable.network_48, "Red", ScreenNetwork.class),
     		//new ScreenSettingsItem(R.drawable.lock_48, "Security", ScreenSecurity.class),
-    		new ScreenSettingsItem(R.drawable.eab_48, "Contacts", ScreenContacts.class),
-    		new ScreenSettingsItem(R.drawable.im_invisible_user_48, "Presence", ScreenPresence.class),
-    		new ScreenSettingsItem(R.drawable.codecs_48, "Codecs", ScreenCodecs.class),
+    		//new ScreenSettingsItem(R.drawable.eab_48, "Contactos", ScreenContacts.class),
+    		//new ScreenSettingsItem(R.drawable.im_invisible_user_48, "Presencia", ScreenPresence.class),
+    		//new ScreenSettingsItem(R.drawable.codecs_48, "Codecs", ScreenCodecs.class),
     		//new ScreenSettingsItem(R.drawable.messaging_48, "Messaging", ScreenMessaging.class),
     		//new ScreenSettingsItem(R.drawable.qos_qoe_48, "QoS/QoE", ScreenQoS.class),
     		//new ScreenSettingsItem(R.drawable.natt_48, "NATT", ScreenNatt.class),
