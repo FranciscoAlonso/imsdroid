@@ -204,13 +204,15 @@ public class ScreenHome extends BaseScreen {
 	 * ScreenHomeAdapter
 	 */
 	static class ScreenHomeAdapter extends BaseAdapter{
-		static final int ALWAYS_VISIBLE_ITEMS_COUNT = 4;
+		static final int ALWAYS_VISIBLE_ITEMS_COUNT = 6;
 		static final ScreenHomeItem[] sItems =  new ScreenHomeItem[]{
 			// always visible
     		new ScreenHomeItem(R.drawable.sign_in_48, "Registrarse", null),
     		new ScreenHomeItem(R.drawable.exit_48, "Cerrar", null),
     		new ScreenHomeItem(R.drawable.options_48, "Opciones", ScreenSettings.class),
     		new ScreenHomeItem(R.drawable.eab2_48, "Contactos", ScreenTabContacts.class),
+    		new ScreenHomeItem(R.drawable.eab2_48, "Casos", ScreenCases.class),
+    		new ScreenHomeItem(R.drawable.document_up_48, "Nuevo Caso", ScreenCase.class),
     		//new ScreenHomeItem(R.drawable.about_48, "About", ScreenAbout.class),
     		// visible only if connected
     		new ScreenHomeItem(R.drawable.dialer_48, "Marcador", ScreenTabDialer.class),

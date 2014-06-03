@@ -49,6 +49,8 @@
         <activity android:name=".Screens.ScreenAVQueue"></activity>
         <activity android:name=".Screens.ScreenChatQueue"></activity>
         <activity android:name=".Screens.ScreenLoginRegister"></activity>
+        <activity android:name=".Screens.ScreenCases"></activity>
+        <activity android:name=".Screens.ScreenCase"></activity>
             
         
 

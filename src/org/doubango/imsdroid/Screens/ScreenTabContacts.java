@@ -178,7 +178,7 @@ public class ScreenTabContacts extends BaseScreen {
 	}
 	
 	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) { //transferencia de archivos, por revisar
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) { //transferencia de archivos
 		super.onActivityResult(requestCode, resultCode, data);
 
 		if (resultCode == RESULT_OK) {
@@ -187,7 +187,7 @@ public class ScreenTabContacts extends BaseScreen {
 					if (mSelectedContact != null) {
 						Uri selectedContentUri = data.getData();
 						String selectedContentPath = super.getPath(selectedContentUri);
-						//ScreenFileTransferView.sendFile(mSelectedContact.getPrimaryNumber(), selectedContentPath);
+						ScreenFileTransferView.sendFile(mSelectedContact.getPrimaryNumber(), selectedContentPath);
 					}
 					break;
 			}
