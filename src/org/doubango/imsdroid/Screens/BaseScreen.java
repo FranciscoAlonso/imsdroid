@@ -84,6 +84,7 @@ public abstract class BaseScreen extends Activity implements IBaseScreen {
 		LOGIN_REGISTER,
 		CASES,
 		CASE,
+		MEDIC_LIST,
 		LISTTEST,
 				
 		// All others
