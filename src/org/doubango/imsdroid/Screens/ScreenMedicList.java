@@ -179,6 +179,7 @@ public class ScreenMedicList extends BaseScreen{
 			mHandler = new Handler();
 			mInflater = LayoutInflater.from(mContext);
 			//SUSTITUIR LO SIGUIENTE POR LA OBTENCION DE LA LISTA DE CONTACTOS
+			//TO DO
 			//mContacts = Engine.getInstance().getContactService().getObservableContacts();
 			//mContacts.addObserver(this);
 			
