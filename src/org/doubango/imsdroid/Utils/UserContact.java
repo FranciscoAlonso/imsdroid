@@ -18,6 +18,8 @@ public class UserContact {
 		Extension = null;
 	}
 	
-	
+	public String getDisplayName(){
+		return Name;
+	}
 
 }
