@@ -177,11 +177,15 @@ public class ScreenMedicList extends BaseScreen{
 			super(context);
 			mContext = context;
 			mHandler = new Handler();
+			
 			mInflater = LayoutInflater.from(mContext);
 			//SUSTITUIR LO SIGUIENTE POR LA OBTENCION DE LA LISTA DE CONTACTOS
 			//TO DO
 			//mContacts = Engine.getInstance().getContactService().getObservableContacts();
 			//mContacts.addObserver(this);
+			UserContact user = new UserContact();
+			user.setName("TEST NAME");
+			mContacts.add(user);
 			
 			updateSections();
 			notifyDataSetChanged();

@@ -21,5 +21,9 @@ public class UserContact {
 	public String getDisplayName(){
 		return Name;
 	}
+	
+	public void setName(String name){
+		this.Name = name;
+	}
 
 }
