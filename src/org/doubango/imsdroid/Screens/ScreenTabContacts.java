@@ -277,12 +277,14 @@ public class ScreenTabContacts extends BaseScreen {
 				//Sustituir por lista de contactos 
 				List<UserContact> contacts = new ArrayList<UserContact>(); //lista de contactos en el telefono
 				UserContact user = new UserContact();
+				UserContact user2 = new UserContact();
 				user.setName("TEST NAME");
 				contacts.add(user);
 				contacts.add(user);
 				contacts.add(user);
-				contacts.add(user);
-				contacts.add(user);
+				user2.setName("W TEST NAME");
+				contacts.add(user2);
+				contacts.add(user2);
 				/***/
 				String lastGroup = "$", displayName;
 				ScreenTabContactsAdapter lastAdapter = null;
