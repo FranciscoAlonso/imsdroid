@@ -26,4 +26,9 @@ public class UserContact {
 		this.Name = name;
 	}
 
+	public String getPrimaryNumber(){
+		return this.Extension;
+	}
+	
+
 }

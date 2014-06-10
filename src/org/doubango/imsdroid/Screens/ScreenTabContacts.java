@@ -20,6 +20,7 @@
 package org.doubango.imsdroid.Screens;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -29,6 +30,7 @@ import org.doubango.imsdroid.R;
 import org.doubango.imsdroid.QuickAction.ActionItem;
 import org.doubango.imsdroid.QuickAction.QuickAction;
 import org.doubango.imsdroid.Utils.SeparatedListAdapter;
+import org.doubango.imsdroid.Utils.UserContact;
 import org.doubango.ngn.media.NgnMediaType;
 import org.doubango.ngn.model.NgnContact;
 import org.doubango.ngn.services.INgnContactService;
@@ -77,7 +79,7 @@ public class ScreenTabContacts extends BaseScreen {
 	private final ActionItem mAItemSMS;
 	private final ActionItem mAItemShare;
 	
-	private NgnContact mSelectedContact;
+	private UserContact mSelectedContact;
 	private QuickAction mLasQuickAction;
 	
 	public ScreenTabContacts() {
@@ -172,11 +174,12 @@ public class ScreenTabContacts extends BaseScreen {
 	    //se le ponen los iconos a cada actionItem
 	    mAItemVoiceCall.setIcon(getResources().getDrawable(R.drawable.voice_call_25));
 		mAItemVideoCall.setIcon(getResources().getDrawable(R.drawable.visio_call_25));
-		mAItemChat.setIcon(getResources().getDrawable(R.drawable.chat_25));
-		mAItemSMS.setIcon(getResources().getDrawable(R.drawable.sms_25));
-		mAItemShare.setIcon(getResources().getDrawable(R.drawable.image_gallery_25));  
+		//mAItemChat.setIcon(getResources().getDrawable(R.drawable.chat_25));
+		//mAItemSMS.setIcon(getResources().getDrawable(R.drawable.sms_25));
+		//mAItemShare.setIcon(getResources().getDrawable(R.drawable.image_gallery_25));  
 	}
-	
+	//TRANSFERENCIA DE ARCHIVOS
+	/*
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) { //transferencia de archivos
 		super.onActivityResult(requestCode, resultCode, data);
@@ -192,13 +195,13 @@ public class ScreenTabContacts extends BaseScreen {
 					break;
 			}
 		}
-	}
+	}*/
 	private final OnItemClickListener mOnItemListViewClickListener = new OnItemClickListener() { //onclick sobre un elemento de la lista obtiene la posicion y muestra las opciones
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			mSelectedContact = (NgnContact)parent.getItemAtPosition(position);
+			mSelectedContact = (UserContact)parent.getItemAtPosition(position);
 			if(mSelectedContact != null){
 				mLasQuickAction = new QuickAction(view);
-				if(!NgnStringUtils.isNullOrEmpty("6001")){ // se agrega cada opcion (originalmente verificaba si el contacto tiene numero primario)
+				if(!NgnStringUtils.isNullOrEmpty("6001")){ // se agrega cada opcion (originalmente verificaba si el contacto tiene numero primario)*** CAMBIAR A NMERO DEL CONTACTO SELECCIONADO****
 					mLasQuickAction.addActionItem(mAItemVoiceCall);
 					mLasQuickAction.addActionItem(mAItemVideoCall);
 					//mLasQuickAction.addActionItem(mAItemChat);
@@ -218,7 +221,7 @@ public class ScreenTabContacts extends BaseScreen {
 				return true;
 			}
 			
-			mSelectedContact = (NgnContact)parent.getItemAtPosition(position);
+			mSelectedContact = (UserContact)parent.getItemAtPosition(position);
 			if(mSelectedContact != null){
 				mLasQuickAction = new QuickAction(view);
 				if(!NgnStringUtils.isNullOrEmpty("6001")){
@@ -243,7 +246,7 @@ public class ScreenTabContacts extends BaseScreen {
 		private final LayoutInflater mInflater;
 		private final Context mContext;
 		private final Handler mHandler;
-		private final NgnObservableList<NgnContact> mContacts;
+		private NgnObservableList<UserContact> mContacts;
 		
 		
 		private MySeparatedListAdapter(Context context){
@@ -251,9 +254,7 @@ public class ScreenTabContacts extends BaseScreen {
 			mContext = context;
 			mHandler = new Handler();
 			mInflater = LayoutInflater.from(mContext);
-			mContacts = Engine.getInstance().getContactService().getObservableContacts();
-			mContacts.addObserver(this);
-			
+
 			updateSections();
 			notifyDataSetChanged();
 		}
@@ -269,12 +270,20 @@ public class ScreenTabContacts extends BaseScreen {
 		private void updateSections(){  //Se agregan los contactos 
 			clearSections();
 			String test = "Test String";
-			synchronized(mContacts){
-				List<NgnContact> contacts = mContacts.getList(); //lista de contactos en el telefono
+			//synchronized(mContacts){
+				//List<UserContact> contacts = mContacts.getList(); //lista de contactos en el telefono
+				/***/
+				//Obtener los contactos
+				//Sustituir por lista de contactos 
+				List<UserContact> contacts = new ArrayList<UserContact>(); //lista de contactos en el telefono
+				UserContact user = new UserContact();
+				user.setName("TEST NAME");
+				contacts.add(user);
+				/***/
 				String lastGroup = "$", displayName;
 				ScreenTabContactsAdapter lastAdapter = null;
 				
-				for(NgnContact contact : contacts){
+				for(UserContact contact : contacts){
 					displayName = contact.getDisplayName();
 					if(NgnStringUtils.isNullOrEmpty(displayName)){
 						continue;
@@ -290,7 +299,7 @@ public class ScreenTabContacts extends BaseScreen {
 						lastAdapter.addContact(contact); //Se agrega string del nombre de contacto
 					}
 				}
-			}
+			//}
 		}
 		
 		@Override
@@ -328,7 +337,7 @@ public class ScreenTabContacts extends BaseScreen {
 		private final LayoutInflater mInflater;
 		
 		private final Context mContext;
-		private List<NgnContact> mContacts;
+		private List<UserContact> mContacts;
 		//private List<String> mContacts;
 		private final String mSectionText;
 		
@@ -342,9 +351,9 @@ public class ScreenTabContacts extends BaseScreen {
 			return mSectionText;
 		}
 		
-		public void addContact(NgnContact contact){
+		public void addContact(UserContact contact){
 			if(mContacts == null){
-				mContacts = new ArrayList<NgnContact>();
+				mContacts = new ArrayList<UserContact>();
 				//mContacts = new ArrayList<String>();
 			}
 			mContacts.add(contact);
@@ -375,7 +384,7 @@ public class ScreenTabContacts extends BaseScreen {
 			if (view == null) {
 				view = mInflater.inflate(R.layout.screen_tab_contacts_contact_item, null);
 			}
-			final NgnContact contact = (NgnContact)getItem(position);
+			final UserContact contact = (UserContact)getItem(position);
 			//final String contact = (String)getItem(position);
 			
 			if(contact != null){
