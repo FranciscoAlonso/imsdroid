@@ -279,6 +279,10 @@ public class ScreenTabContacts extends BaseScreen {
 				UserContact user = new UserContact();
 				user.setName("TEST NAME");
 				contacts.add(user);
+				contacts.add(user);
+				contacts.add(user);
+				contacts.add(user);
+				contacts.add(user);
 				/***/
 				String lastGroup = "$", displayName;
 				ScreenTabContactsAdapter lastAdapter = null;
