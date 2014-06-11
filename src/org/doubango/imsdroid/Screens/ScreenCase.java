@@ -34,7 +34,10 @@ public class ScreenCase extends BaseScreen{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				
+				/* Si el caso es nuevo: escribir el caso a bd y lanzar la pantalla de contactos filtrados por especialidad (cambiar texto a salvar y anadir opinion)
+				 * Si el caso no es nuevo salvar cambios solamente
+				 * */
+				mScreenService.show(ScreenTabContacts.class);
 			}
 		});
         
@@ -43,7 +46,8 @@ public class ScreenCase extends BaseScreen{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				
+				//salvar y lanzar la pantalla de contactos filtrados por especialidad
+				mScreenService.show(ScreenTabContacts.class);
 			}
 		});
         
@@ -52,7 +56,8 @@ public class ScreenCase extends BaseScreen{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				
+				//llamar pantalla home y descartar cambios
+				mScreenService.show(ScreenHome.class);
 			}
 		});
         

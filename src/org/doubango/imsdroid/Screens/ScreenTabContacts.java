@@ -133,7 +133,7 @@ public class ScreenTabContacts extends BaseScreen {
 		mAItemSMS.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				//ScreenChat.startChat(mSelectedContact.getPrimaryNumber(), true);
+				ScreenChat.startChat(mSelectedContact.getPhoneNumber(), true);
 				if(mLasQuickAction != null){
 					mLasQuickAction.dismiss();
 				}
@@ -175,7 +175,7 @@ public class ScreenTabContacts extends BaseScreen {
 	    mAItemVoiceCall.setIcon(getResources().getDrawable(R.drawable.voice_call_25));
 		mAItemVideoCall.setIcon(getResources().getDrawable(R.drawable.visio_call_25));
 		//mAItemChat.setIcon(getResources().getDrawable(R.drawable.chat_25));
-		//mAItemSMS.setIcon(getResources().getDrawable(R.drawable.sms_25));
+		mAItemSMS.setIcon(getResources().getDrawable(R.drawable.sms_25));
 		//mAItemShare.setIcon(getResources().getDrawable(R.drawable.image_gallery_25));  
 	}
 	//TRANSFERENCIA DE ARCHIVOS
@@ -205,7 +205,7 @@ public class ScreenTabContacts extends BaseScreen {
 					mLasQuickAction.addActionItem(mAItemVoiceCall);
 					mLasQuickAction.addActionItem(mAItemVideoCall);
 					//mLasQuickAction.addActionItem(mAItemChat);
-					//mLasQuickAction.addActionItem(mAItemSMS);
+					mLasQuickAction.addActionItem(mAItemSMS);
 					mLasQuickAction.addActionItem(mAItemShare);
 				}
 				mLasQuickAction.setAnimStyle(QuickAction.ANIM_AUTO); //tipo de animacion del menu
@@ -274,7 +274,6 @@ public class ScreenTabContacts extends BaseScreen {
 				//List<UserContact> contacts = mContacts.getList(); //lista de contactos en el telefono
 				/***/
 				//Obtener los contactos
-				//Sustituir por lista de contactos 
 				List<UserContact> contacts = new ArrayList<UserContact>(); //lista de contactos en el telefono
 				UserContact user = new UserContact();
 				UserContact user2 = new UserContact();
@@ -283,6 +282,7 @@ public class ScreenTabContacts extends BaseScreen {
 				contacts.add(user);
 				contacts.add(user);
 				user2.setName("W TEST NAME");
+				user2.setPhoneNumber("5804125774961");
 				contacts.add(user2);
 				contacts.add(user2);
 				/***/
