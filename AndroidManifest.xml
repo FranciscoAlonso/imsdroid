@@ -21,6 +21,7 @@
         <activity android:name=".Screens.ScreenTabHistory"></activity>
         <activity android:name=".Screens.ScreenTabInfo"></activity>
         <activity android:name=".Screens.ScreenTabContacts"></activity>
+        <activity android:name=".Screens.ScreenCases"></activity>
         <activity android:name=".Screens.ScreenTabOnline"></activity>
         <activity android:name=".Screens.ScreenAV"></activity>
         <activity android:name=".Screens.ScreenInterceptCall">
@@ -49,7 +50,7 @@
         <activity android:name=".Screens.ScreenAVQueue"></activity>
         <activity android:name=".Screens.ScreenChatQueue"></activity>
         <activity android:name=".Screens.ScreenLoginRegister"></activity>
-        <activity android:name=".Screens.ScreenCases"></activity>
+        
         <activity android:name=".Screens.ScreenCase"></activity>
         <activity android:name=".Screens.ScreenMedicList"></activity>
             
