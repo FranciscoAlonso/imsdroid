@@ -26,11 +26,12 @@ import java.util.Observable;
 import java.util.Observer;
 
 import org.doubango.imsdroid.Engine;
+import org.doubango.imsdroid.Main;
 import org.doubango.imsdroid.R;
 import org.doubango.imsdroid.QuickAction.ActionItem;
 import org.doubango.imsdroid.QuickAction.QuickAction;
 import org.doubango.imsdroid.Utils.SeparatedListAdapter;
-import org.doubango.imsdroid.Utils.medicCase;
+//import org.doubango.imsdroid.Utils.medicCase;
 import org.doubango.ngn.media.NgnMediaType;
 import org.doubango.ngn.model.NgnContact;
 import org.doubango.ngn.services.INgnContactService;
@@ -64,6 +65,23 @@ import android.widget.AdapterView.OnItemLongClickListener;
  */
  
 public class ScreenCases extends BaseScreen {
+	
+	public static class medicCase{
+
+		protected int id;
+
+		public medicCase(){}
+		public void setDescription(String string) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public String getDescription() {
+			// TODO Auto-generated method stub
+			return "TEST CASE";
+			
+		}} 
+	
 	private static String TAG = ScreenTabContacts.class.getCanonicalName();
 	private static final int SELECT_CONTENT = 1;
 	  
@@ -75,6 +93,7 @@ public class ScreenCases extends BaseScreen {
 	
 	private final ActionItem mAItemVoiceCall;
 	private final ActionItem mAItemVideoCall;
+	private final ActionItem mAItemEditCase;
 	
 	private medicCase mSelectedContact;
 	private QuickAction mLasQuickAction;
@@ -84,6 +103,7 @@ public class ScreenCases extends BaseScreen {
 		
 		mContactService = getEngine().getContactService();
 		mSipService = getEngine().getSipService();
+		
 		/*Botones al hacer click sobre contacto*/ 
 		mAItemVoiceCall = new ActionItem();
 		mAItemVoiceCall.setTitle("Audio");
@@ -112,6 +132,23 @@ public class ScreenCases extends BaseScreen {
 				}
 			}
 		});
+		
+		mAItemEditCase = new ActionItem();
+		mAItemEditCase.setTitle("Editar");
+		mAItemEditCase.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if(mSelectedContact != null){
+					int caseid = mSelectedContact.id;
+					//llamar pantalla de caso con caso cargado
+					final Main mainActivity = (Main)Engine.getInstance().getMainActivity();
+					Intent intent = new Intent(mainActivity, ScreenCase.class);
+					intent.putExtra("id", ScreenCase.class.getCanonicalName());
+					intent.putExtra("case", caseid);
+					startActivity(intent);
+				}
+			}
+		});
 	}
 
 	@Override
@@ -128,7 +165,8 @@ public class ScreenCases extends BaseScreen {
 	    registerForContextMenu(mListView);
 	    //se le ponen los iconos a cada actionItem
 	    mAItemVoiceCall.setIcon(getResources().getDrawable(R.drawable.voice_call_25));
-		mAItemVideoCall.setIcon(getResources().getDrawable(R.drawable.visio_call_25));  
+		mAItemVideoCall.setIcon(getResources().getDrawable(R.drawable.visio_call_25));
+		mAItemEditCase.setIcon(getResources().getDrawable(R.drawable.document_up_48));  
 	}
 
 	private final OnItemClickListener mOnItemListViewClickListener = new OnItemClickListener() { //onclick sobre un elemento de la lista obtiene la posicion y muestra las opciones
@@ -139,6 +177,7 @@ public class ScreenCases extends BaseScreen {
 				if(!NgnStringUtils.isNullOrEmpty("6001")){ // se agrega cada opcion (originalmente verificaba si el contacto tiene numero primario)*** CAMBIAR A NMERO DEL CONTACTO SELECCIONADO****
 					mLasQuickAction.addActionItem(mAItemVoiceCall);
 					mLasQuickAction.addActionItem(mAItemVideoCall);
+					mLasQuickAction.addActionItem(mAItemEditCase);
 				}
 				mLasQuickAction.setAnimStyle(QuickAction.ANIM_AUTO); //tipo de animacion del menu
 				mLasQuickAction.show(); //muestra el menu
