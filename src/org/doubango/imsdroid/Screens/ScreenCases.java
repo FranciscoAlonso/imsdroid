@@ -82,7 +82,7 @@ public class ScreenCases extends BaseScreen {
 			
 		}} 
 	
-	private static String TAG = ScreenTabContacts.class.getCanonicalName();
+	private static String TAG = ScreenCases.class.getCanonicalName();
 	private static final int SELECT_CONTENT = 1;
 	  
 	@SuppressWarnings("unused")
