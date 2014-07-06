@@ -397,8 +397,11 @@ public class ScreenTabContacts extends BaseScreen {
 				//final ImageView ivAvatar = (ImageView) view.findViewById(R.id.screen_tab_contacts_item_imageView_avatar);
 				//if(ivAvatar != null){
 					final TextView tvDisplayName = (TextView) view.findViewById(R.id.screen_tab_contacts_item_textView_displayname);
+					final TextView tvDescription = (TextView) view.findViewById(R.id.screen_tab_contacts_item_textView_description);
+					
 					//tvDisplayName.setText(contact); //Nombre de contacto
 					tvDisplayName.setText(contact.getDisplayName()); //Nombre de contacto
+					tvDisplayName.setText(contact.getDisplayName());
 					/*Se puede sustituir por un icono que indicque presencia*/
 					//final Bitmap avatar = contact.getPhoto(); // foto de contacto no se va a usar 
 					//if(avatar == null){

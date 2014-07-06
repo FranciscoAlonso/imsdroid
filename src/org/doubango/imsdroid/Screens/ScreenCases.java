@@ -52,9 +52,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
@@ -167,6 +169,15 @@ public class ScreenCases extends BaseScreen {
 	    mAItemVoiceCall.setIcon(getResources().getDrawable(R.drawable.voice_call_25));
 		mAItemVideoCall.setIcon(getResources().getDrawable(R.drawable.visio_call_25));
 		mAItemEditCase.setIcon(getResources().getDrawable(R.drawable.document_up_48));  
+		
+		/*List<String> list = new ArrayList<String>();
+		
+		Spinner spinner = (Spinner) findViewById(R.id.planets_spinner);
+		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_spinner_item, list);
+			dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			spinner.setAdapter(dataAdapter);*/
+		
 	}
 
 	private final OnItemClickListener mOnItemListViewClickListener = new OnItemClickListener() { //onclick sobre un elemento de la lista obtiene la posicion y muestra las opciones

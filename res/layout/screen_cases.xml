@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ListView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-    
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:orientation="horizontal" 
+  android:layout_height="wrap_content" 
+  android:paddingTop="3px">
 
-</ListView>
+    <Spinner
+    	android:id="@+id/planets_spinner"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content" 
+   	/>
+    
+	<ListView 
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent" >
+	</ListView>
+	
+</RelativeLayout>
